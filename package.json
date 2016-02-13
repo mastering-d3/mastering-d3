@@ -1,0 +1,23 @@
+{
+  "name": "mastering-d3",
+  "version": "0.1.0",
+  "description": "Code examples for the upcoming book Mastering D3.js (2nd edition)",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mastering-d3/mastering-d3.git"
+  },
+  "keywords": [
+    "mastering-d3",
+    "d3",
+    "book"
+  ],
+  "author": "Pablo Navarro Castillo <pnavarrc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mastering-d3/mastering-d3/issues"
+  },
+  "homepage": "https://github.com/mastering-d3/mastering-d3"
+}
