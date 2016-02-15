@@ -1,0 +1,36 @@
+{
+  "name": "mastering-d3",
+  "version": "0.1.0",
+  "description": "Code examples for the upcoming book Mastering D3.js (2nd edition)",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install && gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mastering-d3/mastering-d3.git"
+  },
+  "keywords": [
+    "mastering-d3",
+    "d3",
+    "book"
+  ],
+  "author": "Pablo Navarro Castillo <pnavarrc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mastering-d3/mastering-d3/issues"
+  },
+  "homepage": "https://github.com/mastering-d3/mastering-d3",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-stylus": "^2.3.0",
+    "handlebars": "^4.0.5",
+    "metalsmith": "^2.1.0",
+    "metalsmith-layouts": "^1.4.4",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-permalinks": "^0.4.1",
+    "normalize": "^0.3.1",
+    "normalize-styl": "^3.0.3"
+  }
+}
