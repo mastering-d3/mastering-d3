@@ -5,8 +5,23 @@ title: Creating an Area Chart
 
 # Creating an area chart
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<style>
+.chart-svg {
+  border: dashed 1px blue;
+}
+</style>
 
-```js
-var a = 1;
-```
+<script src="https://d3js.org/d3.v4.0.0-alpha.18.min.js"></script>
+<script src="./area.js"></script>
+
+<div class="svg-chart-container"></div>
+
+<script>
+var svgChart = svgContainer()
+  .width(400)
+  .height(300);
+
+d3.selectAll('.svg-chart-container')
+  .data([0])
+  .call(svgChart);
+</script>
