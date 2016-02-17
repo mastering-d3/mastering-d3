@@ -1,34 +1,40 @@
 // Gulpfile
 
-// Include the required packages
-var path       = require('path');
-var del        = require('del');
 var gulp       = require('gulp');
-var stylus     = require('gulp-stylus');
+var plugin     = require('gulp-load-plugins')();
+var stylish    = require('jshint-stylish');
 var Metalsmith = require('metalsmith');
 var layouts    = require('metalsmith-layouts');
 var markdown   = require('metalsmith-markdown');
 var permalinks = require('metalsmith-permalinks');
 
-// Tasks
-// -----
 
-// Compile the styles
+gulp.task('clean', plugin.shell.task([
+  'rm -rf html/'
+]));
+
+
+gulp.task('jshint', function() {
+  gulp.src(['src/**/*.js'])
+    .pipe(plugin.watch('src/**/*.js'))
+    .pipe(plugin.jshint())
+    .pipe(plugin.jshint.reporter(stylish));
+});
+
+
 gulp.task('stylus', ['clean'], function() {
-  return gulp.src('./src/stylus/main.styl')
-    .pipe(stylus())
+  gulp.src('./src/stylus/main.styl')
+    .pipe(plugin.plumber())
+    .pipe(plugin.stylus())
     .pipe(gulp.dest('./html/css'));
 });
 
-// Compile the content
+
 gulp.task('metalsmith', ['clean'], function() {
   Metalsmith(__dirname)
     .source('src')
     .destination('html')
-    .ignore([
-      'templates',
-      'stylus'
-    ])
+    .ignore(['templates', 'stylus'])
     .use(markdown())
     .use(layouts({
       engine: 'handlebars',
@@ -40,9 +46,6 @@ gulp.task('metalsmith', ['clean'], function() {
     });
 });
 
-// Delete the compiled assets
-gulp.task('clean', function() {
-  return del(['html']);
-});
 
+gulp.task('default', ['build']);
 gulp.task('build', ['stylus', 'metalsmith']);

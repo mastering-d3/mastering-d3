@@ -1,3 +1,5 @@
+'use strict';
+
 function createAccessorMethods(target, attributes) {
 
   function createAccessor(attr) {
@@ -66,6 +68,61 @@ function svgContainer() {
       d3.select(this).remove();
     });
   }
+
+  createAccessorMethods(chart, me);
+  return chart;
+}
+
+function groupChart() {
+
+  var me = {
+    classes: [''],
+    x: 0,
+    y: 0
+  };
+
+  function chart(selection) {
+    selection.each(function(data) {
+
+      var container = d3.select(this),
+          group = container.selectAll('g.group-chart').data([data]);
+
+      group.enter().append('g').call(enter);
+      group.call(update);
+    });
+  }
+
+  function enter(selection) {
+    selection.each(function(data) {
+      var group = d3.select(this);
+      group.classed('group-chart', true);
+    });
+  }
+
+  function update(selection) {
+    selection.each(function(data) {
+      var group = d3.select(this);
+
+      me.classes.forEach(function(className) {
+        group.classed(className, true);
+      });
+
+      if ((me.x !== 0) || (me.y !== 0)) {
+        group.attr('transform', 'translate(' + [ me.x, me.y ] + ')');
+      }
+    });
+  }
+
+  function exit(selection) {
+    selection.each(function(data) {
+      d3.select(this).remove();
+    });
+  }
+
+  chart.addClass = function(className) {
+    me.classes.push(className);
+    return chart;
+  };
 
   createAccessorMethods(chart, me);
   return chart;
