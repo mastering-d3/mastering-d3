@@ -40,6 +40,6 @@
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-permalinks": "^0.4.1",
     "normalize": "^0.3.1",
-    "normalize-styl": "^3.0.3"
+    "skeleton-css": "^2.0.4"
   }
 }
