@@ -17,25 +17,25 @@ function createAccessorMethods(target, attributes) {
   }
 }
 
-function svgContainer() {
+// Area Chart
+function areaChart() {
 
   var me = {
-    width: 800,
-    height: 600,
-    viewBox: function() {
-      return '0 0 ' + me.width + ' ' + me.height;
-    }
+    width:  600,
+    height: 400,
+    margin: {top: 10, right: 10, bottom: 30, left: 30}
   };
 
   function chart(selection) {
     selection.each(function(data) {
 
       var div = d3.select(this),
-          svg = div.selectAll('svg.chart-svg').data([data]);
+          svg = div.selectAll('svg.area-chart').data([data]);
 
+      // Create, update and remove the SVG element
       svg.enter().append('svg').call(enter);
       svg.call(update);
-      svg.exit().call(exit);
+      svg.exit().remove(exit);
 
     });
   }
@@ -45,71 +45,36 @@ function svgContainer() {
 
       var svg = d3.select(this);
 
-      svg
-        .classed('chart-svg', true);
+      svg.classed('area-chart', true);
+
+      svg.append('g').classed('axis xaxis', true);
+      svg.append('g').classed('axis yaxis', true);
     });
   }
 
   function update(selection) {
     selection.each(function(data) {
 
-      var svg = d3.select(this);
+      var svg = d3.select(this),
+          gXAxis = svg.selectAll('g.xaxis').data([data]),
+          gYAxis = svg.selectAll('g.yaxis').data([data]);
 
       svg
         .attr('width', me.width)
-        .attr('height', me.height)
-        .attr('viewBox', typeof me.viewBox === 'string' ? me.viewBox : me.viewBox());
+        .attr('height', me.height);
 
-    });
-  }
-
-  function exit(selection) {
-    selection.each(function(data) {
-      d3.select(this).remove();
-    });
-  }
-
-  createAccessorMethods(chart, me);
-  return chart;
-}
-
-function groupChart() {
-
-  var me = {
-    classes: [''],
-    x: 0,
-    y: 0
-  };
-
-  function chart(selection) {
-    selection.each(function(data) {
-
-      var container = d3.select(this),
-          group = container.selectAll('g.group-chart').data([data]);
-
-      group.enter().append('g').call(enter);
-      group.call(update);
-    });
-  }
-
-  function enter(selection) {
-    selection.each(function(data) {
-      var group = d3.select(this);
-      group.classed('group-chart', true);
-    });
-  }
-
-  function update(selection) {
-    selection.each(function(data) {
-      var group = d3.select(this);
-
-      me.classes.forEach(function(className) {
-        group.classed(className, true);
+      gXAxis.attr('transform', function() {
+        var dx = me.margin.left,
+            dy = me.height - me.margin.top;
+        return 'translate(' + [dx, dy] + ')';
       });
 
-      if ((me.x !== 0) || (me.y !== 0)) {
-        group.attr('transform', 'translate(' + [ me.x, me.y ] + ')');
-      }
+      gYAxis.attr('transform', function() {
+        var dx = me.margin.left,
+            dy = me.margin.top;
+        return 'translate(' + [dx, dy] + ')';
+      });
+
     });
   }
 
@@ -118,11 +83,6 @@ function groupChart() {
       d3.select(this).remove();
     });
   }
-
-  chart.addClass = function(className) {
-    me.classes.push(className);
-    return chart;
-  };
 
   createAccessorMethods(chart, me);
   return chart;

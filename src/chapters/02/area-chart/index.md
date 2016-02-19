@@ -21,6 +21,7 @@ title: Creating an Area Chart
 <script>
 var width = 800,
     height = 600;
+
 var margin = {
   top: 10,
   right: 10,
@@ -28,25 +29,11 @@ var margin = {
   left: 30
 };
 
-var svgChart = svgContainer()
+var areaChart = areaChart()
   .width(width)
   .height(height);
 
 d3.selectAll('.svg-chart-container')
   .data([0])
-  .call(svgChart);
-</script>
-
-## Group Chart
-
-<script>
-
-var groupX = groupChart()
-  .addClass('xaxis')
-  .x(margin.left)
-  .y(height - margin.bottom);
-
-var svg = d3.selectAll('svg.chart-svg')
-  .data([0])
-  .call(groupX);
+  .call(areaChart);
 </script>
