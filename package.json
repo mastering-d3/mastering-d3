@@ -22,16 +22,19 @@
   },
   "homepage": "https://github.com/mastering-d3/mastering-d3",
   "devDependencies": {
+    "d3": "^3.5.16",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-rev": "^7.0.0",
     "gulp-rev-all": "^0.8.22",
     "gulp-shell": "^0.5.2",
     "gulp-stylus": "^2.3.0",
     "gulp-watch": "^4.3.5",
+    "gulp-zip": "^3.2.0",
     "handlebars": "^4.0.5",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
@@ -40,6 +43,8 @@
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-permalinks": "^0.4.1",
     "normalize": "^0.3.1",
-    "skeleton-css": "^2.0.4"
+    "ramda": "^0.19.1",
+    "skeleton-css": "^2.0.4",
+    "underscore": "^1.8.3"
   }
 }
