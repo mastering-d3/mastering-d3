@@ -25,6 +25,7 @@
     "d3": "^3.5.16",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
+    "gulp-copy": "0.0.2",
     "gulp-jshint": "^2.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.0",

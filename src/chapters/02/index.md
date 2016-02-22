@@ -3,4 +3,9 @@ layout: chapter-index.html
 title: Reusable Charts
 ---
 
-Contents
+# 2. Reusable Charts
+
+- Bars
+- Barcode Chart
+- Area Chart
+- Moving Average Layout

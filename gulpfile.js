@@ -46,6 +46,11 @@ gulp.task('metalsmith', ['clean'], function() {
     });
 });
 
+gulp.task('copy:js', ['clean'], function() {
+  gulp.src('node_modules/d3/d3.js')
+    .pipe(plugin.copy('html/js', {prefix: 2}));
+});
+
 
 gulp.task('default', ['build']);
-gulp.task('build', ['stylus', 'metalsmith']);
+gulp.task('build', ['stylus', 'metalsmith', 'copy:js']);
