@@ -5,7 +5,7 @@ title: Reusable Charts
 
 # 2. Reusable Charts
 
-- Bars
+- [Bars](/chapters/02/bars)
 - Barcode Chart
 - Area Chart
 - Moving Average Layout

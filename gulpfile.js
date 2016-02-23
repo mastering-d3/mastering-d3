@@ -51,6 +51,10 @@ gulp.task('copy:js', ['clean'], function() {
     .pipe(plugin.copy('html/js', {prefix: 2}));
 });
 
+gulp.task('copy:css', ['clean'], function() {
+  gulp.src('node_modules/skeleton-css/css/*.css')
+    .pipe(plugin.copy('html/css', {prefix: 3}));
+});
 
 gulp.task('default', ['build']);
-gulp.task('build', ['stylus', 'metalsmith', 'copy:js']);
+gulp.task('build', ['stylus', 'metalsmith', 'copy:js', 'copy:css']);

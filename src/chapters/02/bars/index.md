@@ -3,29 +3,12 @@ layout: section.html
 title: Basic Bar Chart
 ---
 
-<script src="https://d3js.org/d3.v4.0.0-alpha.18.min.js"></script>
-<script src="./area.js"></script>
+<script src="/js/d3.js"></script>
 
-## SVG Chart
+# Creating Bars
 
-<div class="svg-chart-container"></div>
+<div class="bars-container"></div>
 
 <script>
-var width = 800,
-    height = 600;
-
-var margin = {
-  top: 10,
-  right: 10,
-  bottom: 30,
-  left: 30
-};
-
-var areaChart = areaChart()
-  .width(width)
-  .height(height);
-
-d3.selectAll('.svg-chart-container')
-  .data([0])
-  .call(areaChart);
+var div = d3.select('.bars-container');
 </script>
