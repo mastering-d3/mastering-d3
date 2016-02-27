@@ -9,10 +9,20 @@ var markdown   = require('metalsmith-markdown');
 var permalinks = require('metalsmith-permalinks');
 
 
-gulp.task('clean', plugin.shell.task([
-  'rm -rf html/'
+gulp.task('clean', ['clean:html', 'clean:css', 'clean:js']);
+
+gulp.task('clean:html', plugin.shell.task([
+  'rm -rf html/chapters/**',
+  'rm -rf html/index.html'
 ]));
 
+gulp.task('clean:css', plugin.shell.task([
+  'rm -rf html/css/'
+]));
+
+gulp.task('clean:js', plugin.shell.task([
+  'rm -rf html/js/'
+]));
 
 gulp.task('jshint', function() {
   gulp.src(['src/**/*.js'])
@@ -22,7 +32,7 @@ gulp.task('jshint', function() {
 });
 
 
-gulp.task('stylus', ['clean'], function() {
+gulp.task('stylus', ['clean:css'], function() {
   gulp.src('./src/stylus/main.styl')
     .pipe(plugin.plumber())
     .pipe(plugin.stylus())
@@ -30,7 +40,7 @@ gulp.task('stylus', ['clean'], function() {
 });
 
 
-gulp.task('metalsmith', ['clean'], function() {
+gulp.task('metalsmith', ['clean:html'], function() {
   Metalsmith(__dirname)
     .source('src')
     .destination('html')
@@ -46,15 +56,22 @@ gulp.task('metalsmith', ['clean'], function() {
     });
 });
 
-gulp.task('copy:js', ['clean'], function() {
+gulp.task('copy:js', function() {
   gulp.src('node_modules/d3/d3.js')
     .pipe(plugin.copy('html/js', {prefix: 2}));
 });
 
-gulp.task('copy:css', ['clean'], function() {
+gulp.task('copy:css', function() {
   gulp.src('node_modules/skeleton-css/css/*.css')
     .pipe(plugin.copy('html/css', {prefix: 3}));
 });
+
+
+gulp.task('watch', function() {
+  plugin.livereload.listen({start: true});
+  gulp.watch('src/**/*.md', ['metalsmith']);
+});
+
 
 gulp.task('default', ['build']);
 gulp.task('build', ['stylus', 'metalsmith', 'copy:js', 'copy:css']);

@@ -35,5 +35,5 @@ var div = d3.select('.charts-container'),
     barDivs = div.selectAll('.bars-container').data([dataA, dataB]);
 
 barDivs.enter().append('div').classed('bars-container', true);
-createBars(barDivs);
+// createBars(barDivs);
 barDivs.exit().remove();
