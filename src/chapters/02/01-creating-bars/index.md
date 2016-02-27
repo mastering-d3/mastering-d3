@@ -52,8 +52,24 @@ bars.exit().remove();
 
 ## Creating a Charting Function
 
+We will create a charting function to encapsulate the creation logic.
 
+<div class="barchart-container-02 barchart-container"></div>
 
-## For Several Divs
+<script>
+function createBars(selection) {
 
-## The proper way
+  var bars = div.selectAll('.bar').data(data);
+
+  bars.enter().append('div').classed('bar', true);
+
+  bars
+    .style('width', function(d) { return d.width + 'px'; })
+    .style('height', height + 'px');
+
+  bars.exit().remove();
+}
+
+var div = d3.select('.barchart-container-02');
+createBars(div);
+</script>
