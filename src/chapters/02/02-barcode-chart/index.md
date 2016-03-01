@@ -7,7 +7,12 @@ title: Creating a Barcode Chart
 
 <style>
 .barcode-chart {
-  border: dashed 1px #666;
+  border: solid 1px #333;
+}
+
+.barcode-bar {
+  stroke: #333;
+  stroke-width: 1px;
 }
 </style>
 
@@ -50,7 +55,7 @@ function barcodeChart() {
         .attr('height', height);
 
       var maxDate = d3.max(data, date),
-          minDate = dateInterval.offset(-1, maxDate);
+          minDate = dateInterval.offset(maxDate, -1);
 
       var xScale = d3.time.scale()
         .domain([minDate, maxDate])
@@ -63,7 +68,7 @@ function barcodeChart() {
       bars
         .attr('x1', function(d) { return xScale(date(d)); })
         .attr('y1', 0)
-        .attr('x2', function(d) { return xScale((d)); })
+        .attr('x2', function(d) { return xScale(date(d)); })
         .attr('y2', height);
 
       bars.exit().remove();
@@ -107,10 +112,12 @@ function barcodeChart() {
 
 var data = [];
 
-var barcode = barcodeChart();
+var barcode = barcodeChart()
+  .date(function(d) { return new Date(d.date + ' ' + d.time); });
 
-d3.selectAll('.barcode-container')
-  .data([data])
-  .call(barcode);
-
+d3.json('/chapters/02/02-barcode-chart/data.json', function(err, data) {
+  d3.selectAll('.barcode-container')
+    .data([data])
+    .call(barcode);  
+});
 </script>
