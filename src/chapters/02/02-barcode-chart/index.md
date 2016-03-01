@@ -16,6 +16,7 @@ title: Creating a Barcode Chart
 }
 </style>
 
+<button class="add-more">Add more</button>
 <div class="barcode-container"></div>
 
 <script>
@@ -48,28 +49,42 @@ function barcodeChart() {
 
   function update(selection) {
     selection.each(function(data) {
-      var svg = d3.select(this);
+      var svg = d3.select(this),
+          bars = svg.selectAll('line.barcode-bar');
 
       svg
         .attr('width', width)
         .attr('height', height);
 
       var maxDate = d3.max(data, date),
-          minDate = dateInterval.offset(maxDate, -1);
+          minDate;
+
+      maxDate = bars.empty() ? maxDate : d3.max(bars.data(), date);
+      minDate = dateInterval.offset(maxDate, -1);
 
       var xScale = d3.time.scale()
         .domain([minDate, maxDate])
         .range([0, width]);
 
-      var bars = svg.selectAll('line.barcode-bar').data(data);
+      console.log([minDate, maxDate, bars.data()]);
 
-      bars.enter().append('line').classed('barcode-bar', true);
+      bars = svg.selectAll('line.barcode-bar').data(data, date);
 
-      bars
-        .attr('x1', function(d) { return xScale(date(d)); })
+      bars.enter().append('line').classed('barcode-bar', true)
         .attr('y1', 0)
-        .attr('x2', function(d) { return xScale(date(d)); })
-        .attr('y2', height);
+        .attr('y2', height)
+        .attr('x1', function(d) { return xScale(date(d)); })
+        .attr('x2', function(d) { return xScale(date(d)); });
+
+      maxDate = d3.max(data, date);
+      minDate = dateInterval.offset(maxDate, -1);
+      xScale.domain([minDate, maxDate]);
+
+      console.log([minDate, maxDate]);
+
+      bars.transition().duration(2000)
+        .attr('x1', function(d) { return xScale(date(d)); })
+        .attr('x2', function(d) { return xScale(date(d)); });
 
       bars.exit().remove();
     });
@@ -116,8 +131,17 @@ var barcode = barcodeChart()
   .date(function(d) { return new Date(d.date + ' ' + d.time); });
 
 d3.json('/chapters/02/02-barcode-chart/data.json', function(err, data) {
+
+  var dataA = data.slice(0, 100);
+
   d3.selectAll('.barcode-container')
-    .data([data])
+    .data([dataA])
     .call(barcode);  
+
+  d3.select('.add-more').on('click', function() {
+    d3.selectAll('.barcode-container')
+      .data([data])
+      .call(barcode);  
+  });
 });
 </script>
